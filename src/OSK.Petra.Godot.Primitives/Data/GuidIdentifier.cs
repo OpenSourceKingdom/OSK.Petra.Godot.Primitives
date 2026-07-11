@@ -2,7 +2,7 @@
 using Godot.Collections;
 using System;
 
-namespace OSK.Petra.Godot.Provisions.Data;
+namespace OSK.Petra.Godot.Primitives.Data;
 
 /// <summary>
 /// A uniqiue identfiier that can be generated and reloaded within a Godot editor
