@@ -1,20 +1,20 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 
-	<ItemGroup Condition="Exists('$(ProjectDir)project.godot')">
-		<PetraGodotFiles Include="$(MSBuildThisFileDirectory)..\godot\Data\**\*.*">
-			<DestFolder>$(ProjectDir)PetraFramework\$(MSBuildThisFileName)\Data\</DestFolder>
-		</PetraGodotFiles>
-		<PetraGodotFiles Include="$(MSBuildThisFileDirectory)..\godot\Scripts\**\*.*">
-			<DestFolder>$(ProjectDir)PetraFramework\$(MSBuildThisFileName)\Scripts\</DestFolder>
-		</PetraGodotFiles>
-	</ItemGroup>
+  <ItemGroup Condition="Exists('$(ProjectDir)project.godot')">
+    <PetraGodotFiles Include="$(MSBuildThisFileDirectory)..\godot\Data\**\*.*">
+      <DestFolder>$(ProjectDir)PetraFramework\$(MSBuildThisFileName)\Data\</DestFolder>
+    </PetraGodotFiles>
+    <PetraGodotFiles Include="$(MSBuildThisFileDirectory)..\godot\Scripts\**\*.*">
+      <DestFolder>$(ProjectDir)PetraFramework\$(MSBuildThisFileName)\Scripts\</DestFolder>
+    </PetraGodotFiles>
+  </ItemGroup>
 
-	<Target Name="CopyPetraFrameworkGodotFiles" BeforeTargets="BeforeBuild" Condition="Exists('$(ProjectDir)project.godot')">
-		<Message Importance="high" Text="[Petra Framework] Synchronizing transitive framework assets into Godot project..." />
+  <Target Name="CopyPetraFrameworkGodotFiles" BeforeTargets="BeforeBuild" Condition="Exists('$(ProjectDir)project.godot')">
+    <Message Importance="high" Text="[Petra Framework] Synchronizing transitive framework assets into Godot project..." />
 
-		<Copy SourceFiles="@(PetraGodotFiles)"
-			  DestinationFiles="@(PetraGodotFiles->'%(DestFolder)%(RecursiveDir)%(Filename)%(Extension)')"
-			  SkipUnchangedFiles="true" />
-	</Target>
+    <Copy SourceFiles="@(PetraGodotFiles)"
+          DestinationFiles="@(PetraGodotFiles->'%(DestFolder)%(RecursiveDir)%(Filename)%(Extension)')"
+          SkipUnchangedFiles="true" />
+  </Target>
 
 </Project>
