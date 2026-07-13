@@ -33,6 +33,12 @@
 		</Content>
 	</ItemGroup>
 
+	<!-- Removing this from compilation to prevent duplicate type related (CS0436) errors from the injected code and the compiled code being in the same package -->
+	<ItemGroup>
+		<Compile Remove="Data\**\*.cs" />
+		<Compile Remove="Scripts\**\*.cs" />
+	</ItemGroup>
+
 	<ItemGroup>
 		<None Include="..\OSK.Petra.Godot.targets" Pack="true" PackagePath="buildTransitive\$(MSBuildProjectName).targets" />
 	</ItemGroup>
