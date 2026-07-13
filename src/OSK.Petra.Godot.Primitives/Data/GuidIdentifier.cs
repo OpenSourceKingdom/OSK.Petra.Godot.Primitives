@@ -55,6 +55,10 @@ public partial class GuidIdentifier : Resource
 
     #region Helpers
 
+    /// <summary>
+    /// Create a Guid directly from a GuidIdentifier
+    /// </summary>
+    /// <param name="identifier"></param>
     public static implicit operator Guid(GuidIdentifier identifier)
         => identifier.Id;
 

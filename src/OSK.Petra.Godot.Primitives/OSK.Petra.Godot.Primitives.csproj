@@ -19,4 +19,21 @@
 	<ItemGroup>
 		<None Include="..\..\README.md" Pack="true" PackagePath="\" />
 	</ItemGroup>
+	
+	<!-- Required Build and Nuget setup for Godot injection -->
+
+	<ItemGroup>
+		<Content Include="Data\**\*.cs">
+			<Pack>true</Pack>
+			<PackagePath>godot\Data\%(RecursiveDir)</PackagePath>
+		</Content>
+		<Content Include="Scripts\**\*.cs">
+			<Pack>true</Pack>
+			<PackagePath>godot\Scripts\%(RecursiveDir)</PackagePath>
+		</Content>
+	</ItemGroup>
+
+	<ItemGroup>
+		<None Include="..\OSK.Petra.Godot.targets" Pack="true" PackagePath="buildTransitive\$(MSBuildProjectName).targets" />
+	</ItemGroup>
 </Project>
