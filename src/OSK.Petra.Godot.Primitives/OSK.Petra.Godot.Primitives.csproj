@@ -23,20 +23,8 @@
 	<!-- Required Build and Nuget setup for Godot injection -->
 
 	<ItemGroup>
-		<Content Include="Data\**\*.cs">
-			<Pack>true</Pack>
-			<PackagePath>godot\Data\%(RecursiveDir)</PackagePath>
-		</Content>
-		<Content Include="Scripts\**\*.cs">
-			<Pack>true</Pack>
-			<PackagePath>godot\Scripts\%(RecursiveDir)</PackagePath>
-		</Content>
-	</ItemGroup>
-
-	<!-- Removing this from compilation to prevent duplicate type related (CS0436) errors from the injected code and the compiled code being in the same package -->
-	<ItemGroup>
-		<Compile Remove="Data\**\*.cs" />
-		<Compile Remove="Scripts\**\*.cs" />
+		<None Include="Data\**\*.cs" Pack="true" PackagePath="godot\Data\%(RecursiveDir)" />
+		<None Include="Scripts\**\*.cs" Pack="true" PackagePath="godot\Scripts\%(RecursiveDir)" />
 	</ItemGroup>
 
 	<ItemGroup>
