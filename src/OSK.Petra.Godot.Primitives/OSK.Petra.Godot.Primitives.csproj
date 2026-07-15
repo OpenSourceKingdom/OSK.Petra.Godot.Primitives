@@ -23,8 +23,7 @@
 	<!-- Required Build and Nuget setup for Godot injection -->
 
 	<ItemGroup>
-		<None Include="Data\**\*.cs" Pack="true" PackagePath="godot\Data\%(RecursiveDir)" />
-		<None Include="Scripts\**\*.cs" Pack="true" PackagePath="godot\Scripts\%(RecursiveDir)" />
+		<Compile Update="**\*.cs" Pack="true" PackagePath="godot\%(RecursiveDir)%(Filename)%(Extension)" />
 	</ItemGroup>
 
 	<ItemGroup>
