@@ -19,14 +19,14 @@
 	<ItemGroup>
 		<None Include="..\..\README.md" Pack="true" PackagePath="\" />
 	</ItemGroup>
-	
-	<!-- Required Build and Nuget setup for Godot injection -->
 
+	<!-- Required Godot injection -->
 	<ItemGroup>
-		<Compile Update="**\*.cs" Pack="true" PackagePath="godot\%(RecursiveDir)%(Filename)%(Extension)" />
+		<None Include="**\*.cs" Exclude="bin\**\*;obj\**\*; .godot\**\*;Properties\**\*" Pack="true" PackagePath="godot\%(RecursiveDir)%(Filename)%(Extension)" />
+		<None Include="..\OSK.Petra.Godot.targets" Pack="true" PackagePath="buildTransitive\$(MSBuildProjectName).targets" />
 	</ItemGroup>
 
 	<ItemGroup>
-		<None Include="..\OSK.Petra.Godot.targets" Pack="true" PackagePath="buildTransitive\$(MSBuildProjectName).targets" />
+	  <PackageReference Include="OSK.Petra.Godot.Framework.Build" Version="0.1.0" />
 	</ItemGroup>
 </Project>
