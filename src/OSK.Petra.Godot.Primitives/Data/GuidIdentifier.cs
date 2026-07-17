@@ -29,6 +29,16 @@ public partial class GuidIdentifier : Resource
         CallDeferred(nameof(Initialize));
     }
 
+    /// <summary>
+    /// Generates a new identifier from a known <see cref="Guid"/>
+    /// </summary>
+    /// <param name="id">The id to set the identifier to</param>
+    public GuidIdentifier(Guid id)
+    {
+        Id = id;
+        _id = id.ToString();
+    }
+
     #endregion
 
     #region Resource Overrides
