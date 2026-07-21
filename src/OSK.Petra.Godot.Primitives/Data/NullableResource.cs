@@ -13,27 +13,16 @@ namespace OSK.Petra.Godot.Primitives.Data;
 /// </summary>
 /// <typeparam name="T"></typeparam>
 public abstract partial class NullableResource<T> : Resource
-    where T: struct
+    where T : struct
 {
     #region Variables
 
-    private bool _isEnabled;
-
     [Export]
-    private bool _enabled 
-    {
-        get => _isEnabled;
-        set 
-        {
-            _isEnabled = value;
-            if (_underlyingValue is null)
-            {
-                _underlyingValue = default(T);
-            }
-        }
-    }
+    private bool _enabled;
 
     private T? _underlyingValue;
+
+    private bool _initialized;
 
     #endregion
 
@@ -106,7 +95,11 @@ public abstract partial class NullableResource<T> : Resource
     protected void SetValue(T? value)
     {
         _underlyingValue = value;
-        _enabled = value is not null;
+        _enabled = _initialized
+            ? value is not null
+            : _enabled;
+
+        _initialized = true;
     }
 
     #endregion
