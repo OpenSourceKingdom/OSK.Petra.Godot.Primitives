@@ -5,7 +5,7 @@
 		<Nullable>enable</Nullable>
 		<LangVersion>12</LangVersion>
 
-		<Description>Includes types and data objects for Godot that other Petra libraries are likely to use</Description>
+		<Description>Includes types and data objects for Godot that other Petra libraries are likely to use and to easily configure these within the Godot inspector</Description>
 		<PackageTags>OpenSourceKingdom, OpenSource, Petra, Game, Framework, Suite, Tool, Primitive, Data, Object, Identifier</PackageTags>
 		<Title>OSK.Petra.Godot.Primitives</Title>
 		<Authors>BlankDev117</Authors>
@@ -22,7 +22,7 @@
 
 	<!-- Required Godot injection -->
 	<ItemGroup>
-		<None Include="**\*.cs" Exclude="bin\**\*;obj\**\*; .godot\**\*;Properties\**\*" Pack="true" PackagePath="godot\%(RecursiveDir)%(Filename)%(Extension)" />
+		<Compile Update="**\*.cs" Pack="true" PackagePath="godot\%(RecursiveDir)%(Filename)%(Extension)" />
 		<None Include="..\OSK.Petra.Godot.targets" Pack="true" PackagePath="buildTransitive\$(MSBuildProjectName).targets" />
 	</ItemGroup>
 
