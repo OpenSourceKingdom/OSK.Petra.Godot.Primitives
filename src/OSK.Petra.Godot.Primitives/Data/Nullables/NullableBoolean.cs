@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace OSK.Petra.Godot.Primitives.Data.Nullables;
 
+/// <summary>
+/// Represents a boolean resource that is optionally set in the editor
+/// </summary>
 [Tool]
 [GlobalClass]
 public partial class NullableBoolean: NullableVariant<bool>

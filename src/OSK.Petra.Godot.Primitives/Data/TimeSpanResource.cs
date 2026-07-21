@@ -7,30 +7,57 @@ using System.Threading.Tasks;
 
 namespace OSK.Petra.Godot.Primitives.Data;
 
+/// <summary>
+/// Provides a resource that can be used to create and edit <see cref="TimeSpan"/> in the inspector
+/// </summary>
 [Tool]
 [GlobalClass]
 public partial class TimeSpanResource : Resource
 {
     #region Variables
 
-    [Export]
+    [Export(PropertyHint.Range, "-23,23")]
     private int _hours;
 
-    [Export]
+    [Export(PropertyHint.Range, "-59,59")]
     private int _minutes;
 
-    [Export]
+    [Export(PropertyHint.Range, "-59,59")]
     private int _seconds;
 
-    [Export]
+    [Export(PropertyHint.Range, "-999,999")]
     private int _milliseconds;
+
+    #endregion
+
+    #region Constructors
+    
+    /// <summary>
+    /// Creates a timespan resource with default values
+    /// </summary>
+    public TimeSpanResource()
+    {
+
+    }
+
+    /// <summary>
+    /// Creates a timespan resource utilizing the provided timespan's values
+    /// </summary>
+    /// <param name="timeSpan"></param>
+    public TimeSpanResource(TimeSpan timeSpan)
+    {
+        _hours = timeSpan.Hours;
+        _minutes = timeSpan.Minutes;
+        _seconds = timeSpan.Seconds;
+        _milliseconds = timeSpan.Milliseconds;
+    }
 
     #endregion
 
     #region Api
 
     /// <summary>
-    /// Gets a timespan equivalent to the resource
+    /// The timespan equivalent to the resource
     /// </summary>
     /// <returns></returns>
     public TimeSpan Value

@@ -8,12 +8,16 @@ using System.Threading.Tasks;
 
 namespace OSK.Petra.Godot.Primitives.Data;
 
-public partial class NullableVariant<[MustBeVariant] T>: NullableResource<T>
+/// <summary>
+/// Provides a nullable base class for variant style resources 
+/// </summary>
+/// <typeparam name="T"></typeparam>
+public abstract partial class NullableVariant<[MustBeVariant] T>: NullableResource<T>
     where T : struct
 {
     #region Variables
 
-    private Variant _underlyingValue
+    private Variant _value
     {
         get => HasValue ? Variant.From(Value) : default;
         set => SetValue(value.As<T>());
@@ -23,17 +27,24 @@ public partial class NullableVariant<[MustBeVariant] T>: NullableResource<T>
 
     #region Constructors
 
-    public NullableVariant() 
+    /// <summary>
+    /// Creates a nullable variant resource using the default value
+    /// </summary>
+    protected NullableVariant() 
         : base() 
     { 
     }
 
-    public NullableVariant(T? value) 
+    /// <summary>
+    /// Creates a nullable variant resource using the provided value
+    /// </summary>
+    /// <param name="value">The variant value</param>
+    protected NullableVariant(T? value) 
         : base(value)
     {
         if (value.HasValue)
         {
-            _underlyingValue = Variant.From(value.Value);
+            _value = Variant.From(value.Value);
         }
     }
 
@@ -41,12 +52,13 @@ public partial class NullableVariant<[MustBeVariant] T>: NullableResource<T>
 
     #region Resource Overrides
 
+    /// <inheritdoc/>
     public override Array<Dictionary> _GetPropertyList()
     {
         return new((Dictionary[])[ 
             new Dictionary
             {
-                { "name", nameof(_underlyingValue) },
+                { "name", nameof(_value) },
                 { "type", (int)GetVariantTypeFromSystem(typeof(T)) },
                 { "usage", (int)PropertyUsageFlags.Default }
             }

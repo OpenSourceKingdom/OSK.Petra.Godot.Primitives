@@ -12,32 +12,45 @@ namespace OSK.Petra.Godot.Primitives.Data;
 /// Provides a resource that gives access to nullable style resources within the godot inspector
 /// </summary>
 /// <typeparam name="T"></typeparam>
-public partial class NullableResource<T> : Resource
-    where T : struct
+public abstract partial class NullableResource<T> : Resource
+    where T: struct
 {
     #region Variables
 
-    [Export]
-    private bool _enabled { get; set; }
+    private bool _isEnabled;
 
-    private T? _value;
+    [Export]
+    private bool _enabled 
+    {
+        get => _isEnabled;
+        set 
+        {
+            _isEnabled = value;
+            if (_underlyingValue is null)
+            {
+                _underlyingValue = default(T);
+            }
+        }
+    }
+
+    private T? _underlyingValue;
 
     #endregion
 
     #region Constructors
 
     /// <summary>
-    /// Creates a nullable <see cref="T"/> resource, with the default value
+    /// Creates a nullable resource, with the default value
     /// </summary>
-    public NullableResource()
+    protected NullableResource()
     {
     }
 
     /// <summary>
-    /// Creates a nullable <see cref="T"/> resource, using the provided value
+    /// Creates a nullable resource, using the provided value
     /// </summary>
     /// <param name="value"></param>
-    public NullableResource(T? value)
+    protected NullableResource(T? value)
     {
         SetValue(value);
     }
@@ -57,14 +70,14 @@ public partial class NullableResource<T> : Resource
     /// </remarks>
     public T Value
     {
-        get => _enabled ? Value : throw new InvalidOperationException("Unable to get a value for a nullable that has not been set.");
+        get => HasValue ? _underlyingValue.Value : throw new InvalidOperationException("Unable to get a value for a nullable that has not been set.");
     }
 
     /// <summary>
     /// Describes whether the value has been set in the editor
     /// </summary>
-    [MemberNotNullWhen(true, nameof(Value))]
-    public bool HasValue => _enabled;
+    [MemberNotNullWhen(true, nameof(_underlyingValue))]
+    public bool HasValue => _underlyingValue is not null;
 
     /// <summary>
     /// Gets the value of the resource, returning the fallback value if it was not set
@@ -74,7 +87,7 @@ public partial class NullableResource<T> : Resource
     public T GetValueOrDefault(T fallback = default) => _enabled ? Value : fallback;
 
     /// <summary>
-    /// Converts the resource to the equivalent nullable <see cref="T"/>
+    /// Converts the resource to the equivalent nullable type
     /// </summary>
     /// <param name="nullableResource"></param>
     public static implicit operator T?(NullableResource<T> nullableResource)
@@ -82,21 +95,17 @@ public partial class NullableResource<T> : Resource
             ? nullableResource.Value
             : null;
 
-    /// <summary>
-    /// Converts the <see cref="T"/> to the equivalent nullable resource
-    /// </summary>
-    /// <param name="value"></param>
-    public static implicit operator NullableResource<T>(T? value)
-        => new(value);
-
     #endregion
 
     #region Helpers
 
-
+    /// <summary>
+    /// Sets the underlying value for the nullable resource
+    /// </summary>
+    /// <param name="value"></param>
     protected void SetValue(T? value)
     {
-        _value = value;
+        _underlyingValue = value;
         _enabled = value is not null;
     }
 
