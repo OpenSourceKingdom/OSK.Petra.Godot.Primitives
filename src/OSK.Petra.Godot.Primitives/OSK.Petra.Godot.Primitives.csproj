@@ -5,7 +5,7 @@
 		<Nullable>enable</Nullable>
 		<LangVersion>12</LangVersion>
 
-		<Description>Includes types and data objects for Godot that other Petra libraries are likely to use</Description>
+		<Description>Includes types and data objects for Godot that other Petra libraries are likely to use and to easily configure these within the Godot inspector</Description>
 		<PackageTags>OpenSourceKingdom, OpenSource, Petra, Game, Framework, Suite, Tool, Primitive, Data, Object, Identifier</PackageTags>
 		<Title>OSK.Petra.Godot.Primitives</Title>
 		<Authors>BlankDev117</Authors>
