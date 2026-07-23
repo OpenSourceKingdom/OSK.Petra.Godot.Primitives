@@ -80,9 +80,9 @@ public abstract partial class NullableResource<T> : Resource
     /// </summary>
     /// <param name="nullableResource"></param>
     public static implicit operator T?(NullableResource<T> nullableResource)
-        => nullableResource.HasValue
-            ? nullableResource.Value
-            : null;
+        => nullableResource is null
+            ? null
+            : nullableResource.HasValue ? nullableResource.Value : null;
 
     #endregion
 
